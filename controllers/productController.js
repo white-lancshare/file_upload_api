@@ -40,6 +40,29 @@ exports.getAll=async(req,res)=>{
     }
 }
 
+exports.getOneProduct=async(req,res)=>{
+    try{
+        const {id}=req.params
+        const finder= await product.findByPk(id)
+
+        if(!finder){
+            return res.status(404).json({
+                message:"product with this id not found"
+            })
+        }
+
+        res.status(200).json({
+            message:"product found successfully",
+            data:finder
+        })
+    }catch(e){
+        res.status(500).json({
+    message:"there is a server error",
+    data:e.message
+})
+    }
+}
+
 exports.updateProduct=async(req,res)=>{
 try{
     const {id}=req.params
